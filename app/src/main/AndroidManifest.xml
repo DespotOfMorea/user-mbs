@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.vnuk.usermbs">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UserMBS">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.view.activity.CreateUserActivity"
+            android:label="@string/title_create_user" />
+        <activity
+            android:name=".ui.view.activity.UserPanelActivity"
+            android:label="@string/title_user_panel" />
+        <activity
+            android:name=".ui.view.activity.CreateEmployeeActivity"
+            android:label="@string/title_create_employee" />
+        <activity
+            android:name=".ui.view.activity.CreateBuyerActivity"
+            android:label="@string/title_create_buyer" />
+        <activity
+            android:name=".ui.view.activity.ViewBuyersActivity"
+            android:label="@string/title_view_buyers" />
+        <activity
+            android:name=".ui.view.activity.ViewApplicantsActivity"
+            android:label="@string/title_applicants_activity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="userViewModel"
+            type="org.vnuk.usermbs.viewmodel.UserViewModel" />
+    </data>
+
+    <LinearLayout style="@style/LinearLayoutMainElementStyle">
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/username" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/hint_username"
+                android:inputType="textPersonName"
+                android:text="@={userViewModel.username}" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/password" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:text="@={userViewModel.password}" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/TextViewErrorStyle"
+            android:text="@{userViewModel.error}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> userViewModel.onLogInClick()}"
+            android:text="@string/log_in" />
+    </LinearLayout>
+</layout>

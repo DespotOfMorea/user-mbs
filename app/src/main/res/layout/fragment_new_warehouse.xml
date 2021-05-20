@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="warehouseViewModel"
+            type="org.vnuk.usermbs.viewmodel.WarehouseViewModel" />
+    </data>
+
+    <LinearLayout style="@style/LinearLayoutMainElementStyle">
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/name" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/hint_warehouse_name"
+                android:inputType="textPersonName"
+                android:text="@={warehouseViewModel.name}" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/city" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_city"
+                android:inputType="textPersonName"
+                android:text="@={warehouseViewModel.city}" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner_employees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@{warehouseViewModel.employees}" />
+
+        <TextView
+            style="@style/TextViewErrorStyle"
+            android:text="@{warehouseViewModel.error}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> warehouseViewModel.onNewWarehouseClick()}"
+            android:text="@string/new_warehouse" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="org.vnuk.usermbs.util.BindingConverter" />
+
+        <variable
+            name="buyerViewModel"
+            type="org.vnuk.usermbs.viewmodel.BuyerViewModel" />
+    </data>
+
+    <LinearLayout style="@style/LinearLayoutMainElementStyle">
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/name" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/hint_buyer_name"
+                android:inputType="textPersonName"
+                android:text="@={buyerViewModel.name}" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pib" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="9"
+                android:hint="@string/hint_pib"
+                android:inputType="number"
+                android:text="@={BindingConverter.intToString(buyerViewModel.pib)}" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/LinearLayoutElementStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/code" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_code"
+                android:inputType="textPersonName"
+                android:text="@={buyerViewModel.code}" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner_employees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@{buyerViewModel.employees}" />
+
+        <TextView
+            style="@style/TextViewErrorStyle"
+            android:text="@{buyerViewModel.error}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> buyerViewModel.onNewBuyerClick()}"
+            android:text="@string/new_buyer" />
+    </LinearLayout>
+</layout>

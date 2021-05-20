@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">User MBS</string>
+
+    <string name="log_in">Log In</string>
+    <string name="new_user">Create new User</string>
+    <string name="error_empty_field">One or more input field must be filled.</string>
+
+    <string name="msg_no_internet">Device is not connected to internet. In order to load job applicants,
+        your device needs to be connected to the internet.</string>
+
+    <string name="code">Code:</string>
+    <string name="hint_code">Enter code</string>
+    <string name="city">City:</string>
+    <string name="hint_city">Enter name of city</string>
+
+    <!-- CreateUserActivity -->
+    <string name="title_create_user">New User</string>
+    <!-- UserFragment -->
+    <string name="name">Name:</string>
+    <string name="hint_name">Enter your Name</string>
+    <string name="username">Username:</string>
+    <string name="hint_username">Enter your Username</string>
+    <string name="error_name_username">Name or/and Username already exists.</string>
+    <string name="password">Password:</string>
+    <string name="error_password">Password must be at least %d characters long.</string>
+    <string name="reenter_password">Re-Enter Password:</string>
+    <string name="error_reenter_password">Re-Entered password must match original password.</string>
+    <string name="msg_title_user_inserted">User saved</string>
+    <string name="msg_user_inserted">New User have been saved in Database.</string>
+
+    <string name="error_login">Invalid username or password.</string>
+    <string name="msg_title_login">Successful login.</string>
+    <string name="msg_login">You are logged in successfully, your User panel will now open.</string>
+
+    <!-- UserPanelActivity -->
+    <string name="title_user_panel">User panel</string>
+    <string name="hello_username">Hello, %s</string>
+    <string name="new_employee">Create new Employee</string>
+    <string name="new_warehouse">Create new Warehouse</string>
+    <string name="new_buyer">Create new Buyer</string>
+    <string name="view_buyers">View Buyers</string>
+    <string name="view_applicants">View job applicants</string>
+
+    <!-- CreateEmployeeActivity -->
+    <string name="title_create_employee">New employee</string>
+    <string name="error_create_employee">This employee already exists.</string>
+    <string name="msg_title_employee_inserted">Employee saved</string>
+    <string name="msg_employee_inserted">New Employee have been saved in Database.</string>
+    <!-- EmployeeFragment -->
+    <string name="first_name">First name:</string>
+    <string name="hint_first_name">Enter first name of employee</string>
+    <string name="last_name">Last name:</string>
+    <string name="hint_last_name">Enter last name of employee</string>
+
+    <!-- CreateBuyerActivity -->
+    <string name="title_create_buyer">New buyer</string>
+    <!-- BuyerFragment -->
+    <string name="hint_buyer_name">Enter buyer Name</string>
+    <string name="pib">PIB:</string>
+    <string name="hint_pib">Enter buyer PIB</string>
+    <string name="error_pib">Invalid form of PIB.</string>
+    <string name="error_create_buyer">This buyer already exists.</string>
+    <string name="msg_title_buyer_inserted">Buyer saved</string>
+    <string name="msg_buyer_inserted">New Buyer have been saved in Database.</string>
+
+    <!-- WarehouseFragment -->
+    <string name="hint_warehouse_name">Enter warehouse Name</string>
+    <string name="error_create_warehouse">This warehouse already exists.</string>
+    <string name="msg_title_warehouse_inserted">Warehouse saved</string>
+    <string name="msg_warehouse_inserted">New Warehouse have been saved in Database.</string>
+
+    <!-- ViewBuyersActivity -->
+    <string name="title_view_buyers">View buyers</string>
+
+    <!-- ViewApplicantsActivity -->
+    <string name="title_applicants_activity">Job applicants</string>
+    <string name="nationality">Nationality:</string>
+    <string name="load_job_applicants">Load job applicants</string>
+    <string name="msg_error_load_applicants">There was some kind of error while loading list of job applicants.</string>
+
+</resources>
