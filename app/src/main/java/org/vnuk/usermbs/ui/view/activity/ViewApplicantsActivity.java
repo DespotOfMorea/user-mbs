@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.databinding.ActivityViewApplicantsBinding;
@@ -45,11 +44,10 @@ public class ViewApplicantsActivity extends AppCompatActivity {
 
     private void setupRecycleView() {
         Log.v(TAG, "Setting up RecycleView.");
-        RecyclerView recyclerView = findViewById(R.id.rv_persons);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvPersons.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvPersons.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter = new PersonRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+        binding.rvPersons.setAdapter(adapter);
         adapter.setOnItemClickListener((view, itemPerson) -> {
             Intent createEmployeeActivityIntent = new Intent(getApplicationContext(), CreateEmployeeActivity.class);
             createEmployeeActivityIntent.putExtra(FIRST_NAME_VALUE, itemPerson.getFirstName());

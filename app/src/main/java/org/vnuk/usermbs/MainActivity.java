@@ -1,24 +1,29 @@
 package org.vnuk.usermbs;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.vnuk.usermbs.databinding.ActivityMainBinding;
 import org.vnuk.usermbs.ui.view.activity.CreateUserActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(TAG, "OnCreate.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btnNewUser = findViewById(R.id.btn_new_user_activity);
-        btnNewUser.setOnClickListener(v -> startCreateUserActivity());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        binding.btnNewUserActivity.setOnClickListener(v -> startCreateUserActivity());
     }
 
     private void startCreateUserActivity() {

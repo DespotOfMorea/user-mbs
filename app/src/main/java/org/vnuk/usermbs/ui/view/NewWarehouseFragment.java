@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,8 +78,7 @@ public class NewWarehouseFragment extends Fragment {
 
     private void setupEmployeeSpinner() {
         Log.v(TAG, "Setting up Spinner.");
-        Spinner spinner = getView().findViewById(R.id.spinner_employees);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerEmployees.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Employee employee = (Employee) parent.getSelectedItem();

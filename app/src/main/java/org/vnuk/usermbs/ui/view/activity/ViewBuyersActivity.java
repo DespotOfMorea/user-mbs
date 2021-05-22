@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.data.room.entity.Employee;
 import org.vnuk.usermbs.databinding.ActivityViewBuyersBinding;
 import org.vnuk.usermbs.ui.adapter.BuyerRecyclerViewAdapter;
@@ -41,11 +38,10 @@ public class ViewBuyersActivity extends AppCompatActivity {
 
     private void setupRecycleView() {
         Log.v(TAG, "Setting up RecycleView.");
-        RecyclerView recyclerView = findViewById(R.id.rv_buyers);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        binding.rvBuyers.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvBuyers.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter = new BuyerRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+        binding.rvBuyers.setAdapter(adapter);
     }
 
     private void setupViewModel() {
@@ -64,8 +60,7 @@ public class ViewBuyersActivity extends AppCompatActivity {
 
     private void setupEmployeeSpinner() {
         Log.v(TAG, "Setting up Spinner.");
-        Spinner spinner = findViewById(R.id.spinner_employees);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerEmployees.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Employee employee = (Employee) parent.getSelectedItem();

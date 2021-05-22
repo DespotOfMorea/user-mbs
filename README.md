@@ -1,6 +1,6 @@
 # User MBS
 
-It's using MVVM (Model-View-ViewModel) Architectural Pattern and Data Binding.
+It's using MVVM (Model-View-ViewModel) Architectural Pattern, [View](https://developer.android.com/topic/libraries/view-binding) and [Data Binding](https://developer.android.com/topic/libraries/data-binding).
 
 For storing data (users, employees, buyers and warehouses), app is using [Room](https://developer.android.com/jetpack/androidx/releases/room).
 
