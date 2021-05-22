@@ -1,5 +1,6 @@
 package org.vnuk.usermbs.ui.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,10 @@ import org.vnuk.usermbs.databinding.ActivityViewApplicantsBinding;
 import org.vnuk.usermbs.ui.adapter.PersonRecyclerViewAdapter;
 import org.vnuk.usermbs.util.Helper;
 import org.vnuk.usermbs.viewmodel.PersonViewModel;
+
+import static org.vnuk.usermbs.ui.view.activity.CreateEmployeeActivity.CITY_VALUE;
+import static org.vnuk.usermbs.ui.view.activity.CreateEmployeeActivity.FIRST_NAME_VALUE;
+import static org.vnuk.usermbs.ui.view.activity.CreateEmployeeActivity.LAST_NAME_VALUE;
 
 public class ViewApplicantsActivity extends AppCompatActivity {
     private static final String TAG = ViewApplicantsActivity.class.getSimpleName();
@@ -45,6 +50,13 @@ public class ViewApplicantsActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         adapter = new PersonRecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((view, itemPerson) -> {
+            Intent createEmployeeActivityIntent = new Intent(getApplicationContext(), CreateEmployeeActivity.class);
+            createEmployeeActivityIntent.putExtra(FIRST_NAME_VALUE, itemPerson.getFirstName());
+            createEmployeeActivityIntent.putExtra(LAST_NAME_VALUE, itemPerson.getLastName());
+            createEmployeeActivityIntent.putExtra(CITY_VALUE, itemPerson.getCity());
+            startActivity(createEmployeeActivityIntent);
+        });
     }
 
     private void setupViewModel() {
@@ -54,9 +66,10 @@ public class ViewApplicantsActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
 
         personViewModel.getMldPersons().observe(this, persons -> {
-            if (persons != null && persons.size() > 0)
+            if (persons != null && persons.size() > 0) {
                 adapter.setPersons(persons);
-            else if (!helper.isDeviceConnected(this))
+                personViewModel.error.setValue("");
+            } else if (!helper.isDeviceConnected(this))
                 personViewModel.error.setValue(getString(R.string.msg_no_internet));
             else
                 personViewModel.error.setValue(getString(R.string.msg_error_load_applicants));

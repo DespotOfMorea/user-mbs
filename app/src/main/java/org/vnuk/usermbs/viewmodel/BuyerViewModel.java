@@ -11,12 +11,13 @@ import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.data.room.entity.Buyer;
 import org.vnuk.usermbs.data.room.entity.Employee;
 import org.vnuk.usermbs.repository.BuyerRepository;
+import org.vnuk.usermbs.util.event.Event;
 
 import java.util.List;
 
 public class BuyerViewModel extends AndroidViewModel {
     private BuyerRepository buyerRepository;
-    private MutableLiveData<Long> mldBuyerID;
+    private MutableLiveData<Event<Long>> mldBuyerID;
     public MutableLiveData<String> name;
     public MutableLiveData<Integer> pib;
     public MutableLiveData<String> code;
@@ -59,7 +60,7 @@ public class BuyerViewModel extends AndroidViewModel {
         buyerRepository.insert(buyer);
     }
 
-    public MutableLiveData<Long> getMldBuyerID() {
+    public MutableLiveData<Event<Long>> getMldBuyerID() {
         return mldBuyerID;
     }
 }

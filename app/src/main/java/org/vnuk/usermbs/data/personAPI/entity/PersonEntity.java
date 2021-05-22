@@ -50,6 +50,14 @@ public class PersonEntity {
         private String personImage;
     }
 
+    public String getFirstName() {
+        return name.firstName;
+    }
+
+    public String getLastName() {
+        return name.lastName;
+    }
+
     public String getFullName() {
         return name.firstName + " " + name.lastName;
     }

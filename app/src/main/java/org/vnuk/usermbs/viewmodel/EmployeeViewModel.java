@@ -11,12 +11,13 @@ import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.data.room.entity.Employee;
 import org.vnuk.usermbs.data.room.entity.EmployeeWithBuyers;
 import org.vnuk.usermbs.repository.EmployeeRepository;
+import org.vnuk.usermbs.util.event.Event;
 
 import java.util.List;
 
 public class EmployeeViewModel extends AndroidViewModel {
     private EmployeeRepository employeeRepository;
-    private MutableLiveData<Long> mldEmployeeID;
+    private MutableLiveData<Event<Long>> mldEmployeeID;
     private MutableLiveData<List<Employee>> mldEmployees;
     private MutableLiveData<List<EmployeeWithBuyers>> mldEmployeeWithBuyers;
     public MutableLiveData<String> firstName;
@@ -56,6 +57,13 @@ public class EmployeeViewModel extends AndroidViewModel {
         employeeRepository.insert(employee);
     }
 
+    public void setData(String firstName, String lastName, String code, String city) {
+        this.firstName.setValue(firstName);
+        this.lastName.setValue(lastName);
+        this.code.setValue(code);
+        this.city.setValue(city);
+    }
+
     public void fetchEmployees() {
         employeeRepository.fetchEmployees();
     }
@@ -64,7 +72,7 @@ public class EmployeeViewModel extends AndroidViewModel {
         employeeRepository.fetchBuyers(employeeID);
     }
 
-    public MutableLiveData<Long> getMldEmployeeID() {
+    public MutableLiveData<Event<Long>> getMldEmployeeID() {
         return mldEmployeeID;
     }
 

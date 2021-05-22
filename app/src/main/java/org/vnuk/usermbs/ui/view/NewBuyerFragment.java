@@ -20,7 +20,6 @@ import org.vnuk.usermbs.util.Helper;
 import org.vnuk.usermbs.viewmodel.BuyerViewModel;
 import org.vnuk.usermbs.viewmodel.EmployeeViewModel;
 
-import static org.vnuk.usermbs.common.Constants.ID_CONSUMED;
 import static org.vnuk.usermbs.data.room.WarehouseDB.BAD_INSERT;
 
 public class NewBuyerFragment extends Fragment {
@@ -68,14 +67,14 @@ public class NewBuyerFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         buyerViewModel.getMldBuyerID().observe(getViewLifecycleOwner(), buyerID -> {
-            if (buyerID.equals(BAD_INSERT))
-                buyerViewModel.error.setValue(getString(R.string.error_create_buyer));
-            else if (!buyerID.equals(ID_CONSUMED)) {
-                Helper helper = Helper.getInstance();
-                helper.alerter(getContext(), R.string.msg_title_buyer_inserted, R.string.msg_buyer_inserted);
-                buyerViewModel.error.setValue("");
-                buyerViewModel.getMldBuyerID().setValue(ID_CONSUMED);
-            }
+            if (!buyerID.isHandled())
+                if (buyerID.getContentIfNotHandled().equals(BAD_INSERT))
+                    buyerViewModel.error.setValue(getString(R.string.error_create_buyer));
+                else {
+                    Helper helper = Helper.getInstance();
+                    helper.alerter(getContext(), R.string.msg_title_buyer_inserted, R.string.msg_buyer_inserted);
+                    buyerViewModel.error.setValue("");
+                }
         });
 
         EmployeeViewModel employeeViewModel = new ViewModelProvider(requireActivity()).get(EmployeeViewModel.class);

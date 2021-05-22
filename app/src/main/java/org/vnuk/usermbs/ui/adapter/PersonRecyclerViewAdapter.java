@@ -2,6 +2,7 @@ package org.vnuk.usermbs.ui.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,9 @@ import java.util.List;
 
 public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecyclerViewAdapter.PersonViewHolder> {
     private static final String TAG = PersonRecyclerViewAdapter.class.getSimpleName();
+
     private List<PersonEntity> persons;
+    private OnItemClickListener onItemClickListener;
 
     public PersonRecyclerViewAdapter() {
         this.persons = new ArrayList<>();
@@ -37,12 +40,16 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecycl
     public void onBindViewHolder(@NonNull PersonViewHolder personViewHolder, int i) {
         Log.v(TAG, "OnBindViewHolder.");
         PersonEntity person = persons.get(i);
-        personViewHolder.personItemBinding.setPerson(person);
+        personViewHolder.bind(person, onItemClickListener);
     }
 
     @Override
     public int getItemCount() {
         return (persons == null) ? 0 : persons.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, PersonEntity item);
     }
 
     public class PersonViewHolder extends RecyclerView.ViewHolder {
@@ -52,10 +59,24 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecycl
             super(personItemBinding.getRoot());
             this.personItemBinding = personItemBinding;
         }
+
+        public void bind(PersonEntity item, OnItemClickListener onItemClickListener) {
+            personItemBinding.setPerson(item);
+            personItemBinding.executePendingBindings();
+            itemView.setOnClickListener(view -> {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(view, item);
+                }
+            });
+        }
     }
 
     public void setPersons(List<PersonEntity> persons) {
         this.persons = persons;
         notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

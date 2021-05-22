@@ -12,12 +12,12 @@ import androidx.appcompat.app.AlertDialog;
  */
 public class Helper {
 
-    private static Helper instance;
+    private static volatile Helper instance;
 
     private Helper() {
     }
 
-    public static Helper getInstance() {
+    public static synchronized Helper getInstance() {
         if (instance == null) {
             synchronized (Helper.class) {
                 if (instance == null) {

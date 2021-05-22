@@ -40,7 +40,7 @@ public abstract class WarehouseDB extends RoomDatabase {
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    public static WarehouseDB getInstance(Context context) {
+    public static synchronized WarehouseDB getInstance(Context context) {
         if (null == instance) {
             synchronized (WarehouseDB.class) {
                 if (instance == null) {

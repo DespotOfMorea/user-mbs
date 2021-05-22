@@ -11,12 +11,13 @@ import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.data.room.entity.Employee;
 import org.vnuk.usermbs.data.room.entity.Warehouse;
 import org.vnuk.usermbs.repository.WarehouseRepository;
+import org.vnuk.usermbs.util.event.Event;
 
 import java.util.List;
 
 public class WarehouseViewModel extends AndroidViewModel {
     private WarehouseRepository warehouseRepository;
-    private MutableLiveData<Long> mldWarehouseID;
+    private MutableLiveData<Event<Long>> mldWarehouseID;
     public MutableLiveData<String> name;
     public MutableLiveData<String> city;
     public MutableLiveData<Long> employeeID;
@@ -54,7 +55,7 @@ public class WarehouseViewModel extends AndroidViewModel {
         warehouseRepository.insert(warehouse);
     }
 
-    public MutableLiveData<Long> getMldWarehouseID() {
+    public MutableLiveData<Event<Long>> getMldWarehouseID() {
         return mldWarehouseID;
     }
 }

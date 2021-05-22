@@ -20,7 +20,6 @@ import org.vnuk.usermbs.databinding.FragmentNewUserBinding;
 import org.vnuk.usermbs.util.Helper;
 import org.vnuk.usermbs.viewmodel.UserViewModel;
 
-import static org.vnuk.usermbs.common.Constants.ID_CONSUMED;
 import static org.vnuk.usermbs.data.room.WarehouseDB.BAD_INSERT;
 
 public class NewUserFragment extends Fragment {
@@ -67,23 +66,23 @@ public class NewUserFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         userViewModel.getMldUserID().observe(getViewLifecycleOwner(), userID -> {
-            if (userID.equals(BAD_INSERT))
-                userViewModel.error.setValue(getString(R.string.error_name_username));
-            else if (!userID.equals(ID_CONSUMED)) {
-                Helper helper = Helper.getInstance();
-                Context context = getContext();
+            if (!userID.isHandled())
+                if (userID.getContentIfNotHandled().equals(BAD_INSERT))
+                    userViewModel.error.setValue(getString(R.string.error_name_username));
+                else {
+                    Helper helper = Helper.getInstance();
+                    Context context = getContext();
 
-                AlertDialog.Builder builder = helper.getBuilder(context,
-                        R.string.msg_title_user_inserted,
-                        R.string.msg_user_inserted);
-                builder.setNeutralButton(context.getString(android.R.string.ok),
-                        (dialog, which) -> {
-                            dialog.dismiss();
-                            startMainActivity();
-                        });
-                builder.create().show();
-                userViewModel.getMldUserID().setValue(ID_CONSUMED);
-            }
+                    AlertDialog.Builder builder = helper.getBuilder(context,
+                            R.string.msg_title_user_inserted,
+                            R.string.msg_user_inserted);
+                    builder.setNeutralButton(context.getString(android.R.string.ok),
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                startMainActivity();
+                            });
+                    builder.create().show();
+                }
         });
     }
 

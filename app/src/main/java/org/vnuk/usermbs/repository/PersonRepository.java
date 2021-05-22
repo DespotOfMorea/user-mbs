@@ -25,7 +25,7 @@ public class PersonRepository {
     private static final String TAG = PersonRepository.class.getSimpleName();
     private static final String DEF_INC = "name,location,picture,nat";
 
-    private static PersonRepository instance;
+    private static volatile PersonRepository instance;
 
     private PersonAPIService apiService;
     private MutableLiveData<List<PersonEntity>> mldPersons;
@@ -38,7 +38,7 @@ public class PersonRepository {
         Log.v(TAG, "Finished creating.");
     }
 
-    public static PersonRepository getInstance() {
+    public static synchronized PersonRepository getInstance() {
         if (instance == null) {
             synchronized (PersonRepository.class) {
                 if (instance == null) {

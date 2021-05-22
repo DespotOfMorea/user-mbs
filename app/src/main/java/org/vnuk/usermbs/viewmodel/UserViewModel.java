@@ -10,13 +10,14 @@ import androidx.lifecycle.MutableLiveData;
 import org.vnuk.usermbs.R;
 import org.vnuk.usermbs.data.room.entity.User;
 import org.vnuk.usermbs.repository.UserRepository;
+import org.vnuk.usermbs.util.event.Event;
 
 import static org.vnuk.usermbs.data.room.entity.User.MIN_PASSWORD_LENGTH;
 
 public class UserViewModel extends AndroidViewModel {
     private UserRepository userRepository;
     private MutableLiveData<Boolean> isValidLogin;
-    private MutableLiveData<Long> mldUserID;
+    private MutableLiveData<Event<Long>> mldUserID;
     public MutableLiveData<String> name;
     public MutableLiveData<String> username;
     public MutableLiveData<String> password;
@@ -94,7 +95,7 @@ public class UserViewModel extends AndroidViewModel {
         return isValidLogin;
     }
 
-    public MutableLiveData<Long> getMldUserID() {
+    public MutableLiveData<Event<Long>> getMldUserID() {
         return mldUserID;
     }
 }

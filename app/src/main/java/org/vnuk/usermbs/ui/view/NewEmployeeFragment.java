@@ -16,7 +16,6 @@ import org.vnuk.usermbs.databinding.FragmentNewEmployeeBinding;
 import org.vnuk.usermbs.util.Helper;
 import org.vnuk.usermbs.viewmodel.EmployeeViewModel;
 
-import static org.vnuk.usermbs.common.Constants.ID_CONSUMED;
 import static org.vnuk.usermbs.data.room.WarehouseDB.BAD_INSERT;
 
 public class NewEmployeeFragment extends Fragment {
@@ -63,14 +62,14 @@ public class NewEmployeeFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         employeeViewModel.getMldEmployeeID().observe(getViewLifecycleOwner(), employeeID -> {
-            if (employeeID.equals(BAD_INSERT))
-                employeeViewModel.error.setValue(getString(R.string.error_create_employee));
-            else if (!employeeID.equals(ID_CONSUMED)) {
-                Helper helper = Helper.getInstance();
-                helper.alerter(getContext(), R.string.msg_title_employee_inserted, R.string.msg_employee_inserted);
-                employeeViewModel.error.setValue("");
-                employeeViewModel.getMldEmployeeID().setValue(ID_CONSUMED);
-            }
+            if (!employeeID.isHandled())
+                if (employeeID.getContentIfNotHandled().equals(BAD_INSERT))
+                    employeeViewModel.error.setValue(getString(R.string.error_create_employee));
+                else {
+                    Helper helper = Helper.getInstance();
+                    helper.alerter(getContext(), R.string.msg_title_employee_inserted, R.string.msg_employee_inserted);
+                    employeeViewModel.error.setValue("");
+                }
         });
     }
 }

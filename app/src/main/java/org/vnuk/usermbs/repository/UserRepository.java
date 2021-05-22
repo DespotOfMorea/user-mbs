@@ -8,13 +8,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import org.vnuk.usermbs.data.room.WarehouseDB;
 import org.vnuk.usermbs.data.room.entity.User;
+import org.vnuk.usermbs.util.event.Event;
 
 public class UserRepository {
     private static final String TAG = UserRepository.class.getSimpleName();
 
-    private static UserRepository instance;
+    private static volatile UserRepository instance;
     private final WarehouseDB mDatabase;
-    private MutableLiveData<Long> mldUserID;
+    private MutableLiveData<Event<Long>> mldUserID;
     private MutableLiveData<Boolean> isValidLogin;
 
     private UserRepository(@NonNull Application application) {
@@ -24,7 +25,7 @@ public class UserRepository {
         Log.v(TAG, "Finished creating.");
     }
 
-    public static UserRepository getInstance(@NonNull Application application) {
+    public static synchronized UserRepository getInstance(@NonNull Application application) {
         if (instance == null) {
             synchronized (UserRepository.class) {
                 if (instance == null) {
@@ -38,7 +39,7 @@ public class UserRepository {
     public void insert(User user) {
         WarehouseDB.databaseWriteExecutor.execute(() -> {
             Long id = mDatabase.getUserDao().insert(user);
-            mldUserID.postValue(id);
+            mldUserID.postValue(new Event<>(id));
         });
     }
 
@@ -49,7 +50,7 @@ public class UserRepository {
         });
     }
 
-    public MutableLiveData<Long> getMldUserID() {
+    public MutableLiveData<Event<Long>> getMldUserID() {
         return mldUserID;
     }
 

@@ -9,15 +9,16 @@ import androidx.lifecycle.MutableLiveData;
 import org.vnuk.usermbs.data.room.WarehouseDB;
 import org.vnuk.usermbs.data.room.entity.Employee;
 import org.vnuk.usermbs.data.room.entity.EmployeeWithBuyers;
+import org.vnuk.usermbs.util.event.Event;
 
 import java.util.List;
 
 public class EmployeeRepository {
     private static final String TAG = EmployeeRepository.class.getSimpleName();
 
-    private static EmployeeRepository instance;
+    private static volatile EmployeeRepository instance;
     private final WarehouseDB mDatabase;
-    private MutableLiveData<Long> mldEmployeeID;
+    private MutableLiveData<Event<Long>> mldEmployeeID;
     private MutableLiveData<List<Employee>> mldEmployees;
     private MutableLiveData<List<EmployeeWithBuyers>> mldEmployeeWithBuyers;
 
@@ -29,7 +30,7 @@ public class EmployeeRepository {
         Log.v(TAG, "Finished creating.");
     }
 
-    public static EmployeeRepository getInstance(@NonNull Application application) {
+    public static synchronized EmployeeRepository getInstance(@NonNull Application application) {
         if (instance == null) {
             synchronized (EmployeeRepository.class) {
                 if (instance == null) {
@@ -43,7 +44,7 @@ public class EmployeeRepository {
     public void insert(Employee employee) {
         WarehouseDB.databaseWriteExecutor.execute(() -> {
             Long id = mDatabase.getEmployeeDao().insert(employee);
-            mldEmployeeID.postValue(id);
+            mldEmployeeID.postValue(new Event<>(id));
         });
     }
 
@@ -61,7 +62,7 @@ public class EmployeeRepository {
         });
     }
 
-    public MutableLiveData<Long> getMldEmployeeID() {
+    public MutableLiveData<Event<Long>> getMldEmployeeID() {
         return mldEmployeeID;
     }
 

@@ -19,7 +19,6 @@ import org.vnuk.usermbs.databinding.FragmentNewWarehouseBinding;
 import org.vnuk.usermbs.util.Helper;
 import org.vnuk.usermbs.viewmodel.WarehouseViewModel;
 
-import static org.vnuk.usermbs.common.Constants.ID_CONSUMED;
 import static org.vnuk.usermbs.data.room.WarehouseDB.BAD_INSERT;
 
 public class NewWarehouseFragment extends Fragment {
@@ -67,14 +66,14 @@ public class NewWarehouseFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         warehouseViewModel.getMldWarehouseID().observe(getViewLifecycleOwner(), warehouseID -> {
-            if (warehouseID.equals(BAD_INSERT))
-                warehouseViewModel.error.setValue(getString(R.string.error_create_warehouse));
-            else if (!warehouseID.equals(ID_CONSUMED)) {
-                Helper helper = Helper.getInstance();
-                helper.alerter(getContext(), R.string.msg_title_warehouse_inserted, R.string.msg_warehouse_inserted);
-                warehouseViewModel.error.setValue("");
-                warehouseViewModel.getMldWarehouseID().setValue(ID_CONSUMED);
-            }
+            if (!warehouseID.isHandled())
+                if (warehouseID.getContentIfNotHandled().equals(BAD_INSERT))
+                    warehouseViewModel.error.setValue(getString(R.string.error_create_warehouse));
+                else {
+                    Helper helper = Helper.getInstance();
+                    helper.alerter(getContext(), R.string.msg_title_warehouse_inserted, R.string.msg_warehouse_inserted);
+                    warehouseViewModel.error.setValue("");
+                }
         });
     }
 
