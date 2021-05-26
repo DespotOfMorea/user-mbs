@@ -75,7 +75,22 @@
     <!-- ViewApplicantsActivity -->
     <string name="title_applicants_activity">Job applicants</string>
     <string name="nationality">Nationality:</string>
+    <!-- BuyerFragment -->
     <string name="load_job_applicants">Load job applicants</string>
     <string name="msg_error_load_applicants">There was some kind of error while loading list of job applicants.</string>
+    <string name="nationality_short">Nat:</string>
+    <string name="num_results">No. results:</string>
 
+    <string-array name="nationalities">
+        <item>All</item>
+        <item>AU</item>
+        <item>CA</item>
+        <item>DE</item>
+        <item>ES</item>
+        <item>FR</item>
+        <item>GB</item>
+        <item>IE</item>
+        <item>NL</item>
+        <item>NZ</item>
+    </string-array>
 </resources>

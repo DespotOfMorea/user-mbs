@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="org.vnuk.usermbs.util.BindingConverter" />
+
+        <variable
+            name="personViewModel"
+            type="org.vnuk.usermbs.viewmodel.PersonViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/element_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nationality_short" />
+
+            <Spinner
+                android:id="@+id/spinner_nationality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@{personViewModel.NATIONALITIES}"
+                android:selectedItemPosition="@={personViewModel.selectedNationalityPosition}" />
+            <!--android:entries="@{@stringArray/nationalities}"
+                android:onItemSelected="@{(parent,view,pos,id)->personViewModel.onSelectNationalityItem(parent,view,pos,id)}" -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/num_results" />
+
+            <Spinner
+                android:id="@+id/spinner_results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@{BindingConverter.intArrayToString(personViewModel.NUMBERS)}"
+                android:selectedItemPosition="@={personViewModel.selectedNumberPosition}" />
+            <!--android:entries="@{BindingConverter.intArrayToString(@intArray/numbers)}"
+                android:onItemSelected="@{(parent,view,pos,id)->personViewModel.onSelectResultsItem(parent,view,pos,id)}" -->
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_load_applicants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> personViewModel.onLoadApplicantsClick()}"
+            android:text="@string/load_job_applicants" />
+
+        <TextView
+            style="@style/TextViewErrorStyle"
+            android:paddingHorizontal="@dimen/element_padding"
+            android:text="@{personViewModel.error}" />
+
+    </LinearLayout>
+
+</layout>

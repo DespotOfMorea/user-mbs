@@ -22,17 +22,11 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_load_applicants"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{()-> personViewModel.onLoadApplicantsClick()}"
-                android:text="@string/load_job_applicants" />
-
-            <TextView
-                style="@style/TextViewErrorStyle"
-                android:paddingHorizontal="@dimen/element_padding"
-                android:text="@{personViewModel.error}" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_fetch_applicants"
+                android:name="org.vnuk.usermbs.ui.view.FetchApplicantsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"

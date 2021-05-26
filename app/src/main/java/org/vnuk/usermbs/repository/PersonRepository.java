@@ -49,39 +49,86 @@ public class PersonRepository {
         return instance;
     }
 
-    public void fetchPersons(int number) {
-        Log.v(TAG, "Fetching persons.");
-        Call<PersonList> call = apiService.getPersons(DEF_INC, number);
+    public void fetchPerson() {
+        Log.v(TAG, "Fetching person.");
+        Call<PersonList> call = apiService.getPerson();
 
         call.enqueue(new Callback<PersonList>() {
             @EverythingIsNonNull
             @Override
             public void onResponse(Call<PersonList> call, Response<PersonList> response) {
-                if (response.isSuccessful()) {
-                    Log.i(TAG, "GET Persons: call was successful.");
-                    mldPersons.setValue(response.body().getPersons());
-                } else {
-                    Log.e(TAG, "GET Persons: There was some kind of error.");
-                    try {
-                        JsonObject jsonObject = new Gson().fromJson(response.errorBody().string(), JsonObject.class);
-                        String error = jsonObject.get("error").toString();
-                        if (!TextUtils.isEmpty(error))
-                            mldAPIError.setValue(error);
-                    } catch (IOException e) {
-                        Log.e(TAG, e.getMessage());
-                        mldPersons.setValue(null);
-                    }
-                }
+                callOnResponse(response);
             }
 
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<PersonList> call, Throwable t) {
-                Log.e(TAG, "GET Persons: call failed.");
-                mldPersons.setValue(null);
-                call.cancel();
+                callOnFailure(call);
             }
         });
+    }
+
+    public void fetchPersons(int numberOfResults) {
+        Log.v(TAG, "Fetching persons.");
+        Call<PersonList> call = apiService.getPersons(DEF_INC, numberOfResults);
+
+        call.enqueue(new Callback<PersonList>() {
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<PersonList> call, Response<PersonList> response) {
+                callOnResponse(response);
+            }
+
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<PersonList> call, Throwable t) {
+                callOnFailure(call);
+            }
+        });
+    }
+
+
+    public void fetchPersons(String nat, int numberOfResults) {
+        Log.v(TAG, "Fetching persons of specific nationality.");
+        Call<PersonList> call = apiService.getPersons(nat, DEF_INC, numberOfResults);
+
+        call.enqueue(new Callback<PersonList>() {
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<PersonList> call, Response<PersonList> response) {
+                callOnResponse(response);
+            }
+
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<PersonList> call, Throwable t) {
+                callOnFailure(call);
+            }
+        });
+    }
+
+    private void callOnResponse(Response<PersonList> response) {
+        if (response.isSuccessful()) {
+            Log.i(TAG, "GET Persons: call was successful.");
+            mldPersons.setValue(response.body().getPersons());
+        } else {
+            Log.e(TAG, "GET Persons: There was some kind of error.");
+            try {
+                JsonObject jsonObject = new Gson().fromJson(response.errorBody().string(), JsonObject.class);
+                String error = jsonObject.get("error").toString();
+                if (!TextUtils.isEmpty(error))
+                    mldAPIError.setValue(error);
+            } catch (IOException e) {
+                Log.e(TAG, e.getMessage());
+                mldPersons.setValue(null);
+            }
+        }
+    }
+
+    private void callOnFailure(Call<PersonList> call) {
+        Log.e(TAG, "GET Persons: call failed.");
+        mldPersons.setValue(null);
+        call.cancel();
     }
 
     public MutableLiveData<List<PersonEntity>> getMldPersons() {
